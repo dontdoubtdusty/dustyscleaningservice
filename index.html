@@ -16,11 +16,11 @@
             overflow-x: hidden;
             margin: 0;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #fff9e6 0%, #fef5dc 100%);
         }
         .splash-container {
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #fff9e6 0%, #fef5dc 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -33,11 +33,11 @@
             height: 200px;
             margin-bottom: 10px;
             animation: fadeInDown 1s ease-out;
-            filter: invert(1) brightness(1.2);
+            filter: brightness(0) saturate(100%) invert(75%) sepia(40%) saturate(600%) hue-rotate(0deg) brightness(95%) contrast(90%);
         }
         .main-content {
             text-align: center;
-            color: white;
+            color: #2c3e50;
             animation: fadeInUp 1.2s ease-out;
             width: 100%;
             max-width: 1200px;
@@ -47,7 +47,8 @@
             font-size: 4rem;
             font-weight: 700;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            color: #d4a574;
             word-break: keep-all;
             white-space: nowrap;
         }
@@ -57,8 +58,8 @@
             opacity: 0.95;
         }
         .cta-button {
-            background: white;
-            color: #667eea;
+            background: #e8b86d;
+            color: #5a4a3a;
             padding: 18px 45px;
             font-size: 1.2rem;
             border: none;
@@ -70,8 +71,8 @@
         }
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            background: #f8f9fa;
+            box-shadow: 0 15px 35px rgba(232,184,109,0.4);
+            background: #f2c98a;
         }
         .reviews-section {
             margin-top: 60px;
@@ -87,7 +88,7 @@
         .reviews-title {
             font-size: 1.8rem;
             margin-bottom: 30px;
-            color: white;
+            color: #2c3e50;
             font-weight: 600;
         }
         .reviews-track {
@@ -114,7 +115,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f4d58d 0%, #e8b86d 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -137,22 +138,6 @@
             line-height: 1.6;
             font-size: 0.95rem;
         }
-        .floating-sparkles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
-            animation: float 4s infinite ease-in-out;
-            opacity: 0.6;
-        }
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -171,16 +156,6 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translateY(-100px) translateX(20px);
-                opacity: 0;
             }
         }
         @keyframes scroll {
@@ -228,9 +203,6 @@
             .main-content {
                 padding: 0 10px;
             }
-            .sparkle {
-                display: none;
-            }
         }
         @media (max-width: 480px) {
             h1 {
@@ -257,15 +229,11 @@
                 font-size: 1.3rem;
                 margin-bottom: 20px;
             }
-            .sparkle {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="splash-container">
-        <div class="floating-sparkles" id="sparkles"></div>        
+    <div class="splash-container">      
         <div class="main-content">
             <img src="dcslogo.svg" alt="Dusty's Cleaning Service Logo" class="logo">
             <h1>Dusty's Cleaning Service</h1>
@@ -383,17 +351,6 @@
         </div>
     </div>
     <script>
-        // Create floating sparkles
-        const sparklesContainer = document.getElementById('sparkles');
-        for (let i = 0; i < 15; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = Math.random() * 100 + '%';
-            sparkle.style.top = Math.random() * 100 + '%';
-            sparkle.style.animationDelay = Math.random() * 4 + 's';
-            sparkle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            sparklesContainer.appendChild(sparkle);
-        }
     </script>
 </body>
 </html>
