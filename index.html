@@ -3,274 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big Juicy Cleaning - We Make It SHINE</title>
+    <title>Dusty's Cleaning Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            font-family: 'Arial Black', Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            margin: 0;
             min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-
-        .sparkle {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: sparkleFloat 3s infinite;
-            opacity: 0;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-        }
-
-        @keyframes sparkleFloat {
-            0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
-            50% { opacity: 1; transform: translateY(-100px) scale(1.5); }
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        .splash-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
             padding: 40px 20px;
-            position: relative;
-            z-index: 1;
         }
-
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            position: relative;
-        }
-
         .logo {
-            font-size: 80px;
-            font-weight: 900;
-            background: linear-gradient(45deg, #fff, #ffd700, #fff, #00ffff);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease infinite, bounce 2s ease-in-out infinite;
-            text-shadow: 0 0 80px rgba(255, 215, 0, 0.5);
-            letter-spacing: -2px;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-out;
+            filter: invert(1) brightness(1.2);
+        }
+        .main-content {
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1.2s ease-out;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 15px;
+        }
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
             margin-bottom: 20px;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            word-break: keep-all;
+            white-space: nowrap;
         }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
         .tagline {
-            font-size: 32px;
-            color: #ffffff;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 4px 10px rgba(0, 0, 0, 0.5);
-            margin-bottom: 50px;
-            animation: pulse 2s ease-in-out infinite;
-            font-style: italic;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
         }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.05); }
-        }
-
         .cta-button {
-            display: inline-block;
-            padding: 25px 60px;
-            font-size: 28px;
-            font-weight: 900;
-            color: #333;
-            background: linear-gradient(135deg, #ffd700, #ffed4e, #ffd700);
-            background-size: 200% 200%;
+            background: white;
+            color: #667eea;
+            padding: 18px 45px;
+            font-size: 1.2rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.4);
-            animation: buttonShine 2s ease infinite, float 3s ease-in-out infinite;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-            overflow: hidden;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-
-        .cta-button:before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -50%; }
-            100% { left: 150%; }
-        }
-
-        @keyframes buttonShine {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
         .cta-button:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.8), 0 0 100px rgba(255, 215, 0, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            background: #f8f9fa;
         }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        .reviews-section {
+            margin-top: 60px;
+            width: 100%;
+            max-width: 1200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .reviews-container {
+            overflow: hidden;
+            width: 100%;
+        }
+        .reviews-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: white;
+            font-weight: 600;
+        }
+        .reviews-track {
+            display: flex;
             gap: 30px;
-            margin-top: 80px;
+            animation: scroll 30s linear infinite;
+            width: max-content;
         }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 30px;
-            padding: 40px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        .review-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            min-width: 350px;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex-shrink: 0;
         }
-
-        .feature-card:hover {
-            transform: translateY(-15px) rotate(2deg);
-            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.4);
-        }
-
-        .feature-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            animation: rotate 4s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .feature-title {
-            font-size: 26px;
-            color: #ffd700;
+        .review-header {
+            display: flex;
+            align-items: center;
             margin-bottom: 15px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
-
-        .feature-text {
-            font-size: 18px;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        .bubble {
-            position: fixed;
-            bottom: -100px;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            pointer-events: none;
-            animation: bubbleRise 8s infinite;
-            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-right: 15px;
         }
-
-        @keyframes bubbleRise {
-            0% { transform: translateY(0) translateX(0); opacity: 0.8; }
-            100% { transform: translateY(-1200px) translateX(100px); opacity: 0; }
+        .reviewer-info h3 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+        }
+        .stars {
+            color: #ffd700;
+            font-size: 1rem;
+        }
+        .review-text {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .floating-sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: float 4s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-100px) translateX(20px);
+                opacity: 0;
+            }
+        }
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+                white-space: normal;
+            }
+            .tagline {
+                font-size: 1.2rem;
+            }
+            .logo {
+                width: 150px;
+                height: 150px;
+            }
+            .cta-button {
+                padding: 15px 35px;
+                font-size: 1rem;
+            }
+            .review-card {
+                min-width: 280px;
+                max-width: 280px;
+                padding: 20px;
+            }
+            .reviews-title {
+                font-size: 1.5rem;
+            }
+            .reviews-track {
+                gap: 20px;
+                animation: scroll 25s linear infinite;
+            }
+            .review-text {
+                font-size: 0.9rem;
+            }
+            .splash-container {
+                padding: 30px 15px;
+            }
+            .main-content {
+                padding: 0 10px;
+            }
+            .sparkle {
+                display: none;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .tagline {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
+            .review-card {
+                min-width: 260px;
+                max-width: 260px;
+                padding: 18px;
+            }
+            .reviews-title {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+            }
+            .sparkle {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <h1 class="logo">BIG JUICY CLEANING</h1>
-            <p class="tagline">💧 We Make It SHINE Like Never Before! ✨</p>
-            <a href="#contact" class="cta-button">GET JUICY NOW!</a>
-        </div>
-
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🧽</div>
-                <h3 class="feature-title">Deep Clean Magic</h3>
-                <p class="feature-text">We scrub where others fear to tread. Every corner sparkles!</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Lightning Fast</h3>
-                <p class="feature-text">Quick service that doesn't compromise on quality. Zoom zoom!</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌟</div>
-                <h3 class="feature-title">Satisfaction Guaranteed</h3>
-                <p class="feature-text">If it ain't juicy, we'll make it right. 100% promise!</p>
+    <div class="splash-container">
+        <div class="floating-sparkles" id="sparkles"></div>        
+        <div class="main-content">
+            <img src="dcslogo.svg" alt="Dusty's Cleaning Service Logo" class="logo">
+            <h1>Dusty's Cleaning Service</h1>
+            <p class="tagline">Sparkling Clean, Every Time</p>
+            <button class="cta-button" onclick="alert('Booking system coming soon!')">Book Now</button>
+            
+            <div class="reviews-section">
+                <h2 class="reviews-title">What Our Customers Say</h2>
+                <div class="reviews-container">
+                    <div class="reviews-track">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">KD</div>
+                                <div class="reviewer-info">
+                                    <h3>Karen Dustworth</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"Finally, a cleaning service that lives up to its name! My house went from 'disaster zone' to 'magazine cover' in just three hours. I'd give six stars if I could."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">BS</div>
+                                <div class="reviewer-info">
+                                    <h3>Bob Sparkleton</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"I haven't seen my kitchen counters this clean since 2019. Pretty sure they found a remote control I lost in 2017. Absolute wizards with a mop."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">MW</div>
+                                <div class="reviewer-info">
+                                    <h3>Mop Winchester</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"They cleaned places I didn't even know existed in my apartment. Found out I actually have hardwood floors under all that... stuff. Mind = blown."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">SC</div>
+                                <div class="reviewer-info">
+                                    <h3>Stella Cleanbright</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"My mother-in-law visited and had NOTHING to criticize. Let me repeat: NOTHING. That's when I knew Dusty's was the real deal."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">VB</div>
+                                <div class="reviewer-info">
+                                    <h3>Victor Broom</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"Professional, punctual, and they made my bachelor pad look like an actual adult lives there. My dates are significantly more impressed now. 10/10."</p>
+                        </div>
+                        <!-- Duplicate set for seamless loop -->
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">KD</div>
+                                <div class="reviewer-info">
+                                    <h3>Karen Dustworth</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"Finally, a cleaning service that lives up to its name! My house went from 'disaster zone' to 'magazine cover' in just three hours. I'd give six stars if I could."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">BS</div>
+                                <div class="reviewer-info">
+                                    <h3>Bob Sparkleton</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"I haven't seen my kitchen counters this clean since 2019. Pretty sure they found a remote control I lost in 2017. Absolute wizards with a mop."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">MW</div>
+                                <div class="reviewer-info">
+                                    <h3>Mop Winchester</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"They cleaned places I didn't even know existed in my apartment. Found out I actually have hardwood floors under all that... stuff. Mind = blown."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">SC</div>
+                                <div class="reviewer-info">
+                                    <h3>Stella Cleanbright</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"My mother-in-law visited and had NOTHING to criticize. Let me repeat: NOTHING. That's when I knew Dusty's was the real deal."</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-avatar">VB</div>
+                                <div class="reviewer-info">
+                                    <h3>Victor Broom</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="review-text">"Professional, punctual, and they made my bachelor pad look like an actual adult lives there. My dates are significantly more impressed now. 10/10."</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
     <script>
-        // Create sparkles on mouse move
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.8) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = e.pageX + 'px';
-                sparkle.style.top = e.pageY + 'px';
-                document.body.appendChild(sparkle);
-                setTimeout(() => sparkle.remove(), 3000);
-            }
-        });
-
-        // Create floating bubbles
-        function createBubble() {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            const size = Math.random() * 60 + 40;
-            bubble.style.width = size + 'px';
-            bubble.style.height = size + 'px';
-            bubble.style.left = Math.random() * window.innerWidth + 'px';
-            bubble.style.animationDuration = (Math.random() * 4 + 6) + 's';
-            bubble.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(bubble);
-            setTimeout(() => bubble.remove(), 10000);
-        }
-
-        setInterval(createBubble, 800);
-
-        // Create initial sparkles
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = Math.random() * window.innerWidth + 'px';
-                sparkle.style.top = Math.random() * window.innerHeight + 'px';
-                sparkle.style.animationDelay = Math.random() * 3 + 's';
-                document.body.appendChild(sparkle);
-            }, i * 100);
+        // Create floating sparkles
+        const sparklesContainer = document.getElementById('sparkles');
+        for (let i = 0; i < 15; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 4 + 's';
+            sparkle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            sparklesContainer.appendChild(sparkle);
         }
     </script>
 </body>
