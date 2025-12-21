@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Dusty's Cleaning Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff9e6 0%, #fef5dc 100%);
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #d4a574;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        .navbar-logo-img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) saturate(100%) invert(75%) sepia(40%) saturate(600%) hue-rotate(0deg) brightness(95%) contrast(90%);
+        }
+        .navbar-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .navbar-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+        }
+        .navbar-links a:hover {
+            color: #d4a574;
+        }
+        .navbar-book-btn {
+            background: #e8b86d;
+            color: #5a4a3a;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .navbar-book-btn:hover {
+            background: #f2c98a;
+            transform: translateY(-2px);
+        }
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+        .hero-section {
+            padding: 120px 20px 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff9e6 0%, #fef5dc 100%);
+        }
+        .hero-section h1 {
+            font-size: 3.5rem;
+            color: #d4a574;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero-section p {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .services-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .service-card {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 80px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .service-card.reverse {
+            flex-direction: row-reverse;
+        }
+        .service-image {
+            flex: 1;
+            min-height: 350px;
+            background: linear-gradient(135deg, #f4d58d 0%, #e8b86d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .service-content {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .service-content h2 {
+            font-size: 2.2rem;
+            color: #d4a574;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .service-content p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        .service-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        .service-features li {
+            padding: 10px 0;
+            color: #2c3e50;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .service-features li:before {
+            content: "✓";
+            color: #e8b86d;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        .service-btn {
+            background: #e8b86d;
+            color: #5a4a3a;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .service-btn:hover {
+            background: #f2c98a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232,184,109,0.4);
+        }
+        .cta-section {
+            background: white;
+            padding: 80px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #d4a574;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-button {
+            background: #e8b86d;
+            color: #5a4a3a;
+            padding: 18px 45px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(232,184,109,0.4);
+            background: #f2c98a;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+            .navbar-links.active {
+                display: flex;
+            }
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .navbar-logo {
+                font-size: 1.1rem;
+            }
+            .navbar-logo-img {
+                width: 35px;
+                height: 35px;
+            }
+            .hero-section {
+                padding: 100px 20px 40px;
+            }
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+            .hero-section p {
+                font-size: 1.1rem;
+            }
+            .service-card {
+                flex-direction: column;
+                margin-bottom: 40px;
+            }
+            .service-card.reverse {
+                flex-direction: column;
+            }
+            .service-image {
+                min-height: 250px;
+            }
+            .service-content {
+                padding: 30px;
+            }
+            .service-content h2 {
+                font-size: 1.8rem;
+            }
+            .service-content p {
+                font-size: 1rem;
+            }
+            .cta-section {
+                padding: 50px 20px;
+            }
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <img src="dcslogo.svg" alt="Logo" class="navbar-logo-img">
+            <span>Dusty's</span>
+        </a>
+        <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="navbar-links" id="navLinks">
+            <a href="services.html">Services</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="about.html">About</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+            <a href="booking.html" class="navbar-book-btn">Book Now</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <h1>Our Services</h1>
+        <p>From routine maintenance to deep cleaning transformations, we offer comprehensive cleaning solutions tailored to your needs.</p>
+    </section>
+
+    <div class="services-container">
+        <div class="service-card">
+            <div class="service-image">
+                [Photo: Sparkling clean living room]
+            </div>
+            <div class="service-content">
+                <h2>Regular House Cleaning</h2>
+                <p>Keep your home consistently clean with our scheduled maintenance service. Perfect for busy families and professionals who want to come home to a pristine space every week.</p>
+                <ul class="service-features">
+                    <li>Weekly, bi-weekly, or monthly scheduling</li>
+                    <li>Dusting, vacuuming, and mopping all rooms</li>
+                    <li>Kitchen and bathroom sanitization</li>
+                    <li>Trash removal and recycling</li>
+                    <li>Customizable cleaning checklist</li>
+                </ul>
+                <a href="booking.html" class="service-btn">Book This Service</a>
+            </div>
+        </div>
+
+        <div class="service-card reverse">
+            <div class="service-image">
+                [Photo: Deep cleaned kitchen with gleaming surfaces]
+            </div>
+            <div class="service-content">
+                <h2>Deep Cleaning</h2>
+                <p>Our most thorough service gets into every nook and cranny. Ideal for spring cleaning, preparing for special events, or tackling neglected spaces that need extra attention.</p>
+                <ul class="service-features">
+                    <li>Baseboards, ceiling fans, and light fixtures</li>
+                    <li>Inside cabinets and appliances</li>
+                    <li>Window washing (interior)</li>
+                    <li>Detailed grout and tile cleaning</li>
+                    <li>Behind and under furniture</li>
+                </ul>
+                <a href="booking.html" class="service-btn">Book This Service</a>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="service-image">
+                [Photo: Empty, spotless apartment ready for new tenants]
+            </div>
+            <div class="service-content">
+                <h2>Move-In/Move-Out Cleaning</h2>
+                <p>Starting fresh or leaving your mark? We ensure properties are immaculate for the next chapter. Perfect for landlords, tenants, and homeowners during transitions.</p>
+                <ul class="service-features">
+                    <li>Complete property sanitization</li>
+                    <li>All surfaces scrubbed and disinfected</li>
+                    <li>Interior windows and mirrors</li>
+                    <li>Appliance deep clean (oven, fridge, etc.)</li>
+                    <li>Closets and storage areas</li>
+                </ul>
+                <a href="booking.html" class="service-btn">Book This Service</a>
+            </div>
+        </div>
+
+        <div class="service-card reverse">
+            <div class="service-image">
+                [Photo: Professional office space, clean and organized]
+            </div>
+            <div class="service-content">
+                <h2>Commercial Cleaning</h2>
+                <p>Maintain a professional environment that impresses clients and keeps employees healthy. Flexible scheduling to minimize disruption to your business operations.</p>
+                <ul class="service-features">
+                    <li>Office buildings and workspaces</li>
+                    <li>Retail stores and showrooms</li>
+                    <li>Medical and dental facilities</li>
+                    <li>Evening and weekend availability</li>
+                    <li>Eco-friendly cleaning products available</li>
+                </ul>
+                <a href="booking.html" class="service-btn">Book This Service</a>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="service-image">
+                [Photo: Pristine post-construction space]
+            </div>
+            <div class="service-content">
+                <h2>Post-Construction Cleaning</h2>
+                <p>Remove dust, debris, and construction residue to reveal your beautiful new space. We handle the dirty work so you can enjoy your renovation immediately.</p>
+                <ul class="service-features">
+                    <li>Dust and debris removal from all surfaces</li>
+                    <li>Window and frame cleaning</li>
+                    <li>Floor scrubbing and polishing</li>
+                    <li>Paint and adhesive residue removal</li>
+                    <li>Final walkthrough polish</li>
+                </ul>
+                <a href="booking.html" class="service-btn">Book This Service</a>
+            </div>
+        </div>
+
+        <div class="service-card reverse">
+            <div class="service-image">
+                [Photo: Beautiful organized closet or specialty item]
+            </div>
+            <div class="service-content">
+                <h2>Specialty Services</h2>
+                <p>Need something specific? We offer customized cleaning solutions for unique situations and special requests. Just ask, and we'll create a plan that works for you.</p>
+                <ul class="service-features">
+                    <li>Carpet and upholstery cleaning</li>
+                    <li>Blind and curtain cleaning</li>
+                    <li>Refrigerator and freezer deep clean</li>
+                    <li>Garage and basement organization cleaning</li>
+                    <li>Custom projects upon request</li>
+                </ul>
+                <a href="booking.html" class="service-btn">Book This Service</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <h2>Ready to Experience the Difference?</h2>
+        <p>Let us handle the cleaning while you focus on what matters most. Schedule your first service today and see why our customers keep coming back.</p>
+        <a href="booking.html" class="cta-button">Get Started Today</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Dusty's Cleaning Service. All rights reserved.</p>
+        <p>Sparkling Clean, Every Time</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            if (!event.target.closest('.navbar')) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
