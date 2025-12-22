@@ -3,392 +3,519 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get an Instant Quote - Dusty's Cleaning Service</title>
+    <title>Get a Quote - Dusty's Cleaning Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- COPYING YOUR EXISTING STYLES FOR CONSISTENCY --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #fff9e6 0%, #fef5dc 100%);
             color: #2c3e50;
             min-height: 100vh;
-        }
-
-        /* --- QUOTE CALCULATOR SPECIFIC STYLES --- */
-        .quote-container {
-            max-width: 1100px;
-            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr; /* Form on left, Quote on right */
-            gap: 30px;
-            align-items: start;
         }
 
-        .questionnaire-box {
+        /* Container for the Wizard */
+        .wizard-container {
             background: white;
+            width: 100%;
+            max-width: 700px;
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
+            position: relative;
+            min-height: 500px; /* Prevents jumping height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Progress Bar */
+        .progress-header {
+            background: #fffbf0;
+            padding: 20px 40px;
+            border-bottom: 1px solid #f0e6d2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-text {
+            color: #d4a574;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .step-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #e8b86d;
+            transform: scale(1.2);
+        }
+
+        /* Form Content Area */
+        .step-content {
+            padding: 40px;
+            flex-grow: 1;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.4s ease;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
-            color: #d4a574;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
 
-        h3 {
-            font-size: 1.1rem;
+        p.subtitle {
             color: #8898aa;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        /* Input Styling */
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
+            margin-bottom: 30px;
             font-size: 0.95rem;
         }
 
-        select, input[type="number"] {
+        /* Option Grids (Clickable Cards) */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Radio/Checkbox Card Styling */
+        .option-card {
+            position: relative;
+        }
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .card-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            height: 100%;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .card-visual:hover {
+            border-color: #f2c98a;
+            background: #fffdf8;
+        }
+
+        /* Selected State */
+        .option-card input:checked ~ .card-visual {
+            border-color: #e8b86d;
+            background: #fffbf0;
+            color: #d4a574;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(232, 184, 109, 0.2);
+        }
+
+        /* Number Inputs */
+        .number-input-group {
+            margin-bottom: 20px;
+        }
+        .number-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .number-input-group input {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
             font-size: 1rem;
-            margin-bottom: 15px;
-            transition: border 0.3s;
         }
 
-        select:focus, input:focus {
-            outline: none;
-            border-color: #e8b86d;
-        }
-
-        /* Checkbox Grids */
-        .checkbox-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-        }
-
-        .custom-checkbox {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .custom-checkbox:hover {
-            border-color: #f2c98a;
-            background: #fffdf5;
-        }
-
-        .custom-checkbox input {
-            margin-right: 10px;
-            accent-color: #e8b86d;
-            width: 18px;
-            height: 18px;
-        }
-
-        .custom-checkbox.active {
-            border-color: #e8b86d;
-            background: #fffbf0;
-            color: #5a4a3a;
-            font-weight: 600;
-        }
-
-        /* Sticky Quote Card (Replicating the purple card in your image, but in your colors) */
-        .quote-card {
-            background: linear-gradient(135deg, #e8b86d 0%, #d4a574 100%);
-            color: white;
-            border-radius: 20px;
-            padding: 30px;
-            position: sticky;
-            top: 20px;
-            box-shadow: 0 15px 35px rgba(212, 165, 116, 0.4);
-        }
-
-        .quote-header {
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .big-price {
-            font-size: 3.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin: 10px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .quote-details {
-            margin-top: 20px;
-        }
-
-        .detail-row {
+        /* Navigation Buttons */
+        .wizard-footer {
+            padding: 20px 40px;
+            border-top: 1px solid #f0f0f0;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.9);
-        }
-
-        .detail-row.total-row {
-            border-top: 1px solid rgba(255,255,255,0.3);
-            padding-top: 15px;
-            margin-top: 15px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: white;
-        }
-
-        .book-btn {
-            width: 100%;
             background: white;
-            color: #d4a574;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
+            border: none;
+            transition: all 0.2s;
+            font-size: 1rem;
         }
 
-        .book-btn:hover {
+        .btn-back {
+            background: transparent;
+            color: #8898aa;
+        }
+        .btn-back:hover {
+            color: #2c3e50;
+            background: #f5f5f5;
+        }
+
+        .btn-next {
+            background: #e8b86d;
+            color: #5a4a3a;
+        }
+        .btn-next:hover {
+            background: #f2c98a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(232, 184, 109, 0.3);
         }
 
-        @media (max-width: 850px) {
-            .quote-container {
-                grid-template-columns: 1fr;
-            }
-            .quote-card {
-                position: static;
-                order: -1; /* Puts price at top on mobile */
-                margin-bottom: 20px;
-            }
+        /* Final Result Page Styling */
+        .result-box {
+            text-align: center;
+            padding: 20px;
+        }
+        .final-price {
+            font-size: 4rem;
+            color: #e8b86d;
+            font-weight: 700;
+            margin: 20px 0;
+            text-shadow: 2px 2px 0px #fafafa;
+        }
+        .summary-list {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 5px;
+            color: #555;
+        }
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        .summary-item strong {
+            color: #2c3e50;
+        }
+
+        @media (max-width: 600px) {
+            .step-content { padding: 25px; }
+            .wizard-footer { padding: 20px; }
+            .options-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="quote-container">
-    
-    <div class="questionnaire-box">
-        <h2>Cleaning Service Quote</h2>
-        
-        <h3>Basic Information</h3>
-        <label>Square Footage</label>
-        <select id="sqft" onchange="calculateQuote()">
-            <option value="80">1 - 999 Sq. ft</option>
-            <option value="100" selected>1000 - 1499 Sq. ft</option>
-            <option value="130">1500 - 1999 Sq. ft</option>
-            <option value="160">2000 - 2499 Sq. ft</option>
-            <option value="200">2500 - 2999 Sq. ft</option>
-            <option value="250">3000+ Sq. ft</option>
-        </select>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <div>
-                <label>Bedrooms</label>
-                <select id="bedrooms" onchange="calculateQuote()">
-                    <option value="0">Studio</option>
-                    <option value="10">1 Bedroom</option>
-                    <option value="20">2 Bedrooms</option>
-                    <option value="30">3 Bedrooms</option>
-                    <option value="40">4 Bedrooms</option>
-                    <option value="50">5+ Bedrooms</option>
-                </select>
-            </div>
-            <div>
-                <label>Bathrooms</label>
-                <select id="bathrooms" onchange="calculateQuote()">
-                    <option value="10">1 Bathroom</option>
-                    <option value="20">2 Bathrooms</option>
-                    <option value="30">3 Bathrooms</option>
-                    <option value="40">4+ Bathrooms</option>
-                </select>
-            </div>
+<div class="wizard-container">
+    <div class="progress-header">
+        <span class="progress-text" id="stepText">Step 1 of 4</span>
+        <div class="step-dots">
+            <div class="dot active" id="dot1"></div>
+            <div class="dot" id="dot2"></div>
+            <div class="dot" id="dot3"></div>
+            <div class="dot" id="dot4"></div>
         </div>
-
-        <h3>Condition Adjustments</h3>
-        <div class="checkbox-grid">
-            <label class="custom-checkbox">
-                <input type="checkbox" id="pets" onchange="calculateQuote()"> Pets in home
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="clutter" onchange="calculateQuote()"> Heavy clutter
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="deepClean" onchange="calculateQuote()"> First-time / Deep Clean
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="moveOut" onchange="calculateQuote()"> Move-in / Move-out
-            </label>
-        </div>
-
-        <h3>Add-ons</h3>
-        <div class="checkbox-grid">
-            <label class="custom-checkbox">
-                <input type="checkbox" id="oven" value="30" onchange="calculateQuote()"> Inside Oven (+$30)
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="fridge" value="28" onchange="calculateQuote()"> Inside Fridge (+$28)
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="trash" value="25" onchange="calculateQuote()"> Trash Takeout (+$25)
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="eco" value="25" onchange="calculateQuote()"> Eco-Friendly Products (+$25)
-            </label>
-        </div>
-        
-        <div style="margin-top: 15px;">
-            <label>Interior Windows (Count)</label>
-            <input type="number" id="windows" value="0" min="0" onchange="calculateQuote()" placeholder="0">
-        </div>
-
-        <h3>Frequency</h3>
-        <label>Cleaning Frequency</label>
-        <select id="frequency" onchange="calculateQuote()">
-            <option value="1">One-time (0% discount)</option>
-            <option value="0.9">Monthly (10% discount)</option>
-            <option value="0.85">Bi-Weekly (15% discount)</option>
-            <option value="0.8">Weekly (20% discount)</option>
-        </select>
     </div>
 
-    <div class="quote-card">
-        <div class="quote-header">
-            <h4>Estimated Quote</h4>
-            <div style="font-size: 0.9rem; opacity: 0.9;">Get an instant estimate</div>
-        </div>
+    <form id="quoteForm" onsubmit="return false;">
         
-        <div class="big-price" id="displayTotal">$0.00</div>
-        
-        <div class="quote-details">
-            <div class="detail-row">
-                <span>Estimated Hours:</span>
-                <span id="displayHours">0 hours</span>
+        <div class="step-content active" id="step1">
+            <h2>Let's start with the basics.</h2>
+            <p class="subtitle">How big is the space we are cleaning?</p>
+
+            <label style="font-weight:600; display:block; margin-bottom:10px;">Square Footage</label>
+            <div class="options-grid">
+                <label class="option-card">
+                    <input type="radio" name="sqft" value="80" checked>
+                    <div class="card-visual">1 - 999<br>Sq Ft</div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="sqft" value="100">
+                    <div class="card-visual">1000 - 1499<br>Sq Ft</div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="sqft" value="130">
+                    <div class="card-visual">1500 - 1999<br>Sq Ft</div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="sqft" value="180">
+                    <div class="card-visual">2000+<br>Sq Ft</div>
+                </label>
             </div>
-            <div class="detail-row">
-                <span>Base Price:</span>
-                <span id="displayBase">$0.00</span>
-            </div>
-            <div class="detail-row">
-                <span>Add-ons/Conditions:</span>
-                <span id="displayAddons">$0.00</span>
-            </div>
-            <div class="detail-row">
-                <span>Frequency Discount:</span>
-                <span id="displayDiscount">-$0.00</span>
+
+            <div class="options-grid">
+                <div class="number-input-group">
+                    <label>Bedrooms</label>
+                    <input type="number" id="bedrooms" value="1" min="0">
+                </div>
+                <div class="number-input-group">
+                    <label>Bathrooms</label>
+                    <input type="number" id="bathrooms" value="1" min="1">
+                </div>
             </div>
         </div>
 
-        <button class="book-btn" onclick="proceedToBooking()">Book This Price</button>
+        <div class="step-content" id="step2">
+            <h2>Current Condition</h2>
+            <p class="subtitle">Select all that apply to your home.</p>
+
+            <div class="options-grid">
+                <label class="option-card">
+                    <input type="checkbox" name="condition" value="pets" data-price="20">
+                    <div class="card-visual">🐶<br>Pets in Home</div>
+                </label>
+                <label class="option-card">
+                    <input type="checkbox" name="condition" value="clutter" data-price="30">
+                    <div class="card-visual">📦<br>Heavy Clutter</div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="serviceType" value="standard" checked>
+                    <div class="card-visual">✨<br>Standard Clean</div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="serviceType" value="deep">
+                    <div class="card-visual">🧽<br>Deep Clean</div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="serviceType" value="move">
+                    <div class="card-visual">🚚<br>Move In/Out</div>
+                </label>
+            </div>
+        </div>
+
+        <div class="step-content" id="step3">
+            <h2>Extras & Add-ons</h2>
+            <p class="subtitle">Do you need any specific areas tackled?</p>
+
+            <div class="options-grid">
+                <label class="option-card">
+                    <input type="checkbox" name="addon" value="Oven" data-price="30">
+                    <div class="card-visual">Inside Oven<br>+$30</div>
+                </label>
+                <label class="option-card">
+                    <input type="checkbox" name="addon" value="Fridge" data-price="28">
+                    <div class="card-visual">Inside Fridge<br>+$28</div>
+                </label>
+                <label class="option-card">
+                    <input type="checkbox" name="addon" value="Eco" data-price="25">
+                    <div class="card-visual">Eco Products<br>+$25</div>
+                </label>
+            </div>
+
+            <div class="number-input-group" style="margin-top:20px;">
+                <label>Interior Windows (+$5 each)</label>
+                <input type="number" id="windows" value="0" min="0">
+            </div>
+        </div>
+
+        <div class="step-content" id="step4">
+            <h2>How often?</h2>
+            <p class="subtitle">Recurring plans save you money per visit.</p>
+
+            <div class="options-grid" style="grid-template-columns: 1fr;">
+                <label class="option-card" style="flex-direction: row; text-align: left;">
+                    <input type="radio" name="frequency" value="1" checked>
+                    <div class="card-visual" style="align-items: flex-start; padding-left: 30px;">
+                        <strong>One-Time Clean</strong>
+                        <span style="font-size: 0.85rem; color: #888;">Standard pricing</span>
+                    </div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="frequency" value="0.9">
+                    <div class="card-visual" style="align-items: flex-start; padding-left: 30px;">
+                        <strong>Monthly</strong>
+                        <span style="font-size: 0.85rem; color: #4caf50;">Save 10%</span>
+                    </div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="frequency" value="0.8">
+                    <div class="card-visual" style="align-items: flex-start; padding-left: 30px;">
+                        <strong>Bi-Weekly</strong>
+                        <span style="font-size: 0.85rem; color: #4caf50;">Save 20% (Best Value)</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="step-content" id="stepResult">
+            <div class="result-box">
+                <h2>Your Estimated Quote</h2>
+                <p class="subtitle">Based on the details provided</p>
+                
+                <div class="final-price" id="displayTotalAmount">$0.00</div>
+                
+                <div class="summary-list">
+                    <div class="summary-item">
+                        <span>Base Cleaning:</span>
+                        <strong id="summaryBase">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Add-ons & Extras:</span>
+                        <strong id="summaryAddons">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Frequency Discount:</span>
+                        <strong id="summaryDiscount" style="color:#4caf50;">-$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Est. Duration:</span>
+                        <strong id="summaryHours">0 hrs</strong>
+                    </div>
+                </div>
+
+                <button class="btn btn-next" style="width: 100%; padding: 18px; font-size: 1.2rem;">Book This Price Now</button>
+                <div style="margin-top: 15px;">
+                    <a href="#" onclick="location.reload()" style="color: #8898aa; text-decoration: none; font-size: 0.9rem;">Start Over</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="wizard-footer" id="wizardFooter">
+        <button class="btn btn-back" id="prevBtn" onclick="changeStep(-1)" disabled>Back</button>
+        <button class="btn btn-next" id="nextBtn" onclick="changeStep(1)">Next Step</button>
     </div>
-
 </div>
 
 <script>
-    function calculateQuote() {
-        // 1. Get Base Factors
-        const sqftPrice = parseInt(document.getElementById('sqft').value) || 0;
-        const bedsPrice = parseInt(document.getElementById('bedrooms').value) || 0;
-        const bathsPrice = parseInt(document.getElementById('bathrooms').value) || 0;
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    function changeStep(n) {
+        // Validation logic could go here (e.g., ensure fields are filled)
         
-        let basePrice = sqftPrice + bedsPrice + bathsPrice;
+        // Hide current step
+        document.getElementById('step' + currentStep).classList.remove('active');
+        document.getElementById('dot' + currentStep)?.classList.remove('active');
 
-        // 2. Calculate Condition Adjustments
-        let conditionsTotal = 0;
-        let hoursMultiplier = 1;
+        // Move counter
+        currentStep += n;
 
-        if(document.getElementById('pets').checked) {
-            conditionsTotal += 20; 
-        }
-        if(document.getElementById('clutter').checked) {
-            conditionsTotal += 30;
-            hoursMultiplier += 0.2;
-        }
-        if(document.getElementById('deepClean').checked) {
-            conditionsTotal += 60;
-            hoursMultiplier += 0.5;
-        }
-        if(document.getElementById('moveOut').checked) {
-            conditionsTotal += 100;
-            hoursMultiplier += 0.8;
+        // If we went past the last step, show result
+        if (currentStep > totalSteps) {
+            calculateAndShowResult();
+            return;
         }
 
-        // 3. Calculate Add-ons
-        let addonsTotal = 0;
+        // Show new step
+        document.getElementById('step' + currentStep).classList.add('active');
+        document.getElementById('dot' + currentStep).classList.add('active');
         
-        // Checkboxes with values
-        ['oven', 'fridge', 'trash', 'eco'].forEach(id => {
-            if(document.getElementById(id).checked) {
-                addonsTotal += parseInt(document.getElementById(id).value);
-                hoursMultiplier += 0.1;
-            }
-        });
+        // Update Text
+        document.getElementById('stepText').innerText = `Step ${currentStep} of ${totalSteps}`;
 
-        // Window Count ($5 per window example)
-        const windowCount = parseInt(document.getElementById('windows').value) || 0;
-        const windowPrice = windowCount * 5; 
-        addonsTotal += windowPrice;
-        if(windowCount > 0) hoursMultiplier += (windowCount * 0.05);
-
-        // 4. Calculate Subtotal before discount
-        let preDiscountTotal = basePrice + conditionsTotal + addonsTotal;
-
-        // 5. Apply Frequency Discount
-        const frequencyMultiplier = parseFloat(document.getElementById('frequency').value);
-        let finalTotal = preDiscountTotal * frequencyMultiplier;
-        let discountAmount = preDiscountTotal - finalTotal;
-
-        // 6. Estimate Hours (Rough calculation based on price)
-        // Assuming roughly $40/hr logic + multipliers
-        let estimatedHours = (preDiscountTotal / 40).toFixed(1);
-        if (estimatedHours < 2) estimatedHours = 2; // Minimum 2 hours
-
-        // --- UPDATE UI ---
-        document.getElementById('displayTotal').innerText = '$' + finalTotal.toFixed(2);
-        document.getElementById('displayBase').innerText = '$' + basePrice.toFixed(2);
-        document.getElementById('displayAddons').innerText = '$' + (conditionsTotal + addonsTotal).toFixed(2);
-        document.getElementById('displayDiscount').innerText = '-$' + discountAmount.toFixed(2);
-        document.getElementById('displayHours').innerText = estimatedHours + ' hours';
-
-        // Update styling for active checkboxes
-        document.querySelectorAll('.custom-checkbox').forEach(box => {
-            const input = box.querySelector('input');
-            if(input.checked) box.classList.add('active');
-            else box.classList.remove('active');
-        });
+        // Handle Buttons
+        document.getElementById('prevBtn').disabled = currentStep === 1;
+        
+        if (currentStep === totalSteps) {
+            document.getElementById('nextBtn').innerText = "See Quote";
+        } else {
+            document.getElementById('nextBtn').innerText = "Next Step";
+        }
     }
 
-    function proceedToBooking() {
-        // You can save these values to localStorage here to load them in booking.html
-        alert("Redirecting to booking with your quote saved!");
-        // window.location.href = 'booking.html'; 
-    }
+    function calculateAndShowResult() {
+        // Hide Footer
+        document.getElementById('wizardFooter').style.display = 'none';
+        // Hide Progress Header
+        document.querySelector('.progress-header').style.display = 'none';
+        
+        // Show Result Div
+        document.getElementById('stepResult').classList.add('active');
 
-    // Run once on load
-    calculateQuote();
+        // --- CALCULATION LOGIC ---
+        
+        // 1. Base Price (SqFt + Beds + Baths)
+        let base = parseInt(document.querySelector('input[name="sqft"]:checked').value);
+        base += parseInt(document.getElementById('bedrooms').value) * 10;
+        base += parseInt(document.getElementById('bathrooms').value) * 15;
+
+        // 2. Service Type Multipliers
+        let serviceType = document.querySelector('input[name="serviceType"]:checked').value;
+        let multiplier = 1;
+        if(serviceType === 'deep') multiplier = 1.5;
+        if(serviceType === 'move') multiplier = 1.8;
+        
+        let adjustedBase = base * multiplier;
+
+        // 3. Condition/Addons
+        let extrasTotal = 0;
+        
+        // Checkboxes for conditions (Pets/Clutter)
+        document.querySelectorAll('input[name="condition"]:checked').forEach(cb => {
+            extrasTotal += parseInt(cb.getAttribute('data-price'));
+        });
+
+        // Checkboxes for Addons (Oven, Eco, etc)
+        document.querySelectorAll('input[name="addon"]:checked').forEach(cb => {
+            extrasTotal += parseInt(cb.getAttribute('data-price'));
+        });
+
+        // Windows
+        let windowCount = parseInt(document.getElementById('windows').value) || 0;
+        extrasTotal += (windowCount * 5);
+
+        // 4. Subtotal
+        let subtotal = adjustedBase + extrasTotal;
+
+        // 5. Frequency Discount
+        let freqValue = parseFloat(document.querySelector('input[name="frequency"]:checked').value);
+        let finalTotal = subtotal * freqValue;
+        let discountAmount = subtotal - finalTotal;
+
+        // 6. Time Estimation (Rough logic)
+        let hours = (finalTotal / 45).toFixed(1);
+        if(hours < 2) hours = 2;
+
+        // --- DISPLAY RESULTS ---
+        document.getElementById('displayTotalAmount').innerText = '$' + finalTotal.toFixed(2);
+        document.getElementById('summaryBase').innerText = '$' + adjustedBase.toFixed(2);
+        document.getElementById('summaryAddons').innerText = '$' + extrasTotal.toFixed(2);
+        document.getElementById('summaryDiscount').innerText = '-$' + discountAmount.toFixed(2);
+        document.getElementById('summaryHours').innerText = hours + ' hours';
+    }
 </script>
 
 </body>
