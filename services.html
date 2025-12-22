@@ -99,31 +99,37 @@
             margin: 0 auto;
             line-height: 1.6;
         }
+        
+        /* --- UPDATED SERVICE STYLES FOR SIDE-BY-SIDE LAYOUT --- */
         .services-container {
             max-width: 1200px;
-            margin: 60px auto;
+            margin: 40px auto 80px;
             padding: 0 20px;
-        }
-        .service-card {
-            display: flex;
+            display: flex; /* Makes them sit side-by-side */
             gap: 40px;
-            margin-bottom: 80px;
+            justify-content: center;
+            align-items: stretch; /* Makes cards same height */
+        }
+        
+        .service-card {
+            flex: 1; /* Each card takes equal width */
             background: white;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column; /* Stacks image on top of text */
         }
+        
         .service-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
-        .service-card.reverse {
-            flex-direction: row-reverse;
-        }
+        
         .service-image {
-            flex: 1;
-            min-height: 350px;
+            height: 250px; /* Fixed height for consistency */
+            width: 100%;
             background: linear-gradient(135deg, #f4d58d 0%, #e8b86d 100%);
             display: flex;
             align-items: center;
@@ -132,43 +138,52 @@
             font-size: 1.2rem;
             font-weight: 600;
         }
+        
         .service-content {
-            flex: 1;
-            padding: 50px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            flex-grow: 1; /* Fills remaining space */
         }
+        
         .service-content h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #d4a574;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 700;
+            text-align: center;
         }
+        
         .service-content p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #555;
-            line-height: 1.8;
-            margin-bottom: 25px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
         }
+        
         .service-features {
             list-style: none;
             margin-bottom: 30px;
+            margin-top: auto; /* Pushes list to the bottom of the content area */
         }
+        
         .service-features li {
-            padding: 10px 0;
+            padding: 8px 0;
             color: #2c3e50;
-            font-size: 1rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
+        
         .service-features li:before {
             content: "✓";
             color: #e8b86d;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
+        
         .service-btn {
             background: #e8b86d;
             color: #5a4a3a;
@@ -179,20 +194,23 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            align-self: flex-start;
             text-decoration: none;
-            display: inline-block;
+            display: block;
+            text-align: center;
+            width: 100%; /* Full width button */
         }
+        
         .service-btn:hover {
             background: #f2c98a;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(232,184,109,0.4);
         }
+
         .cta-section {
             background: white;
             padding: 80px 20px;
             text-align: center;
-            margin-top: 60px;
+            margin-top: 20px;
         }
         .cta-section h2 {
             font-size: 2.5rem;
@@ -236,6 +254,8 @@
         footer p {
             margin: 10px 0;
         }
+        
+        /* Mobile Response: Stack them again if screen is small */
         @media (max-width: 768px) {
             .navbar {
                 padding: 15px 20px;
@@ -271,27 +291,15 @@
             .hero-section h1 {
                 font-size: 2.2rem;
             }
-            .hero-section p {
-                font-size: 1.1rem;
-            }
-            .service-card {
-                flex-direction: column;
-                margin-bottom: 40px;
-            }
-            .service-card.reverse {
-                flex-direction: column;
+            .services-container {
+                flex-direction: column; /* Stack vertically on mobile */
+                gap: 30px;
             }
             .service-image {
-                min-height: 250px;
-            }
-            .service-content {
-                padding: 30px;
+                height: 200px;
             }
             .service-content h2 {
                 font-size: 1.8rem;
-            }
-            .service-content p {
-                font-size: 1rem;
             }
             .cta-section {
                 padding: 50px 20px;
@@ -320,68 +328,53 @@
     </nav>
 
     <section class="hero-section">
-        <h1>Our Services</h1>
-        <p>From routine maintenance to deep cleaning transformations, we offer comprehensive cleaning solutions tailored to your needs.</p>
+        <h1>Services</h1>
+        <p>Whether you need a weekly touch-up or a serious deep clean, I’m here to help. Just honest, thorough cleaning done right.</p>
     </section>
 
     <div class="services-container">
+        
         <div class="service-card">
             <div class="service-image">
                 [Photo: Sparkling clean living room]
             </div>
             <div class="service-content">
-                <h2>Regular House Cleaning</h2>
-                <p>Keep your home consistently clean with our scheduled maintenance service. Perfect for busy families and professionals who want to come home to a pristine space every week.</p>
+                <h2>Routine Clean</h2>
+                <p>I'll help you keep your home consistently fresh. Perfect for busy schedules when you want to come home to a pristine space without lifting a finger.</p>
                 <ul class="service-features">
-                    <li>Weekly, bi-weekly, or monthly scheduling</li>
-                    <li>Dusting, vacuuming, and mopping all rooms</li>
+                    <li>Weekly, bi-weekly, or monthly</li>
+                    <li>Dusting, vacuuming, and mopping</li>
                     <li>Kitchen and bathroom sanitization</li>
-                    <li>Trash removal and recycling</li>
-                    <li>Customizable cleaning checklist</li>
+                    <li>Trash removal and tidying</li>
+                    <li>Maintenance of high-traffic areas</li>
                 </ul>
-                <a href="booking.html" class="service-btn">Book This Service</a>
-            </div>
-        </div>
-
-        <div class="service-card reverse">
-            <div class="service-image">
-                [Photo: Deep cleaned kitchen with gleaming surfaces]
-            </div>
-            <div class="service-content">
-                <h2>Deep Cleaning</h2>
-                <p>Our most thorough service gets into every nook and cranny. Ideal for spring cleaning, preparing for special events, or tackling neglected spaces that need extra attention.</p>
-                <ul class="service-features">
-                    <li>Baseboards, ceiling fans, and light fixtures</li>
-                    <li>Inside cabinets and appliances</li>
-                    <li>Window washing (interior)</li>
-                    <li>Detailed grout and tile cleaning</li>
-                    <li>Behind and under furniture</li>
-                </ul>
-                <a href="booking.html" class="service-btn">Book This Service</a>
+                <a href="booking.html" class="service-btn">Book Routine Clean</a>
             </div>
         </div>
 
         <div class="service-card">
             <div class="service-image">
-                [Photo: Empty, spotless apartment ready for new tenants]
+                [Photo: Deep cleaned kitchen with gleaming surfaces]
             </div>
             <div class="service-content">
-                <h2>Move-In/Move-Out Cleaning</h2>
-                <p>Starting fresh or leaving your mark? We ensure properties are immaculate for the next chapter. Perfect for landlords, tenants, and homeowners during transitions.</p>
+                <h2>Deep Clean</h2>
+                <p>My deepest clean. I dig in and scrub the places that usually get ignored - great for spring cleaning or preparing for a special occasion.</p>
                 <ul class="service-features">
-                    <li>Complete property sanitization</li>
-                    <li>All surfaces scrubbed and disinfected</li>
-                    <li>Interior windows and mirrors</li>
-                    <li>Appliance deep clean (oven, fridge, etc.)</li>
-                    <li>Closets and storage areas</li>
+                    <li>Baseboards, fans, and light fixtures</li>
+                    <li>Inside cabinets and appliances</li>
+                    <li>Interior window washing</li>
+                    <li>Detailed grout and tile cleaning</li>
+                    <li>Behind and under furniture</li>
                 </ul>
-                <a href="booking.html" class="service-btn">Book This Service</a>
+                <a href="booking.html" class="service-btn">Book Deep Clean</a>
             </div>
         </div>
 
+    </div>
+
     <section class="cta-section">
         <h2>Ready to Experience the Difference?</h2>
-        <p>Let us handle the cleaning while you focus on what matters most. Schedule your first service today and see why our customers keep coming back. Don't Doubt Dusty's!</p>
+        <p>Let me handle the cleaning while you focus on what matters most. Schedule your first service today and Don't Doubt Dusty's!</p>
         <a href="booking.html" class="cta-button">Get Started Today</a>
     </section>
 
