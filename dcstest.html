@@ -3,544 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get a Quote - Dusty's Cleaning Service</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Our Services - Dusty's Cleaning Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #fff9e6 0%, #fef5dc 100%);
-            color: #2c3e50;
+            overflow-x: hidden;
+            margin: 0;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: linear-gradient(135deg, #fff9e6 0%, #fef5dc 100%);
         }
-
-        .wizard-container {
-            background: white;
-            width: 100%;
-            max-width: 700px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-            overflow: hidden;
-            position: relative;
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .progress-header {
-            background: #fffbf0;
-            padding: 20px 40px;
-            border-bottom: 1px solid #f0e6d2;
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
-
-        .progress-text {
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
             color: #d4a574;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
+            font-size: 1.3rem;
         }
-
-        .step-dots {
+        .navbar-logo-img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) saturate(100%) invert(75%) sepia(40%) saturate(600%) hue-rotate(0deg) brightness(95%) contrast(90%);
+        }
+        .navbar-links {
             display: flex;
-            gap: 8px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: #e0e0e0;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-
-        .dot.active {
-            background: #e8b86d;
-            transform: scale(1.2);
-        }
-
-        .step-content {
-            padding: 40px;
-            flex-grow: 1;
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .step-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        p.subtitle {
-            color: #8898aa;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .option-card {
-            position: relative;
-        }
-
-        .option-card input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        }
-
-        .card-visual {
-            display: flex;
-            flex-direction: column;
+            gap: 30px;
             align-items: center;
-            justify-content: center;
-            padding: 20px 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-            height: 100%;
+        }
+        .navbar-links a {
+            text-decoration: none;
+            color: #2c3e50;
             font-weight: 500;
-            color: #555;
+            transition: color 0.3s ease;
+            font-size: 1rem;
         }
-
-        .card-visual:hover {
-            border-color: #f2c98a;
-            background: #fffdf8;
-        }
-
-        .option-card input:checked ~ .card-visual {
-            border-color: #e8b86d;
-            background: #fffbf0;
+        .navbar-links a:hover {
             color: #d4a574;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(232, 184, 109, 0.2);
         }
-
-        .number-input-group {
-            margin-bottom: 20px;
-        }
-        .number-input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        .number-input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .wizard-footer {
-            padding: 20px 40px;
-            border-top: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            background: white;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-            font-size: 1rem;
-        }
-
-        .btn-back {
-            background: transparent;
-            color: #8898aa;
-        }
-        .btn-back:hover {
-            color: #2c3e50;
-            background: #f5f5f5;
-        }
-
-        .btn-next {
+        .navbar-book-btn {
             background: #e8b86d;
             color: #5a4a3a;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
-        .btn-next:hover {
+        .navbar-book-btn:hover {
             background: #f2c98a;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(232, 184, 109, 0.3);
         }
-
-        .result-box {
-            text-align: center;
-            padding: 20px;
-        }
-        .final-price {
-            font-size: 4rem;
-            color: #e8b86d;
-            font-weight: 700;
-            margin: 20px 0;
-            text-shadow: 2px 2px 0px #fafafa;
-        }
-        .summary-list {
-            text-align: left;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            border-bottom: 1px dashed #e0e0e0;
-            padding-bottom: 5px;
-            color: #555;
-        }
-        .summary-item:last-child {
-            border-bottom: none;
-        }
-        .summary-item strong {
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
             color: #2c3e50;
+            cursor: pointer;
         }
-        .disclaimer-text {
-            font-size: 0.85rem;
-            color: #8898aa;
-            margin-top: 20px;
-            line-height: 1.5;
-            background: #fffbf0;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #f0e6d2;
+        .hero-section {
+            padding: 120px 20px 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff9e6 0%, #fef5dc 100%);
+        }
+        .hero-section h1 {
+            font-size: 3.5rem;
+            color: #d4a574;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero-section p {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* --- UPDATED SERVICE STYLES FOR SIDE-BY-SIDE LAYOUT --- */
+        .services-container {
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+            display: flex; /* Makes them sit side-by-side */
+            gap: 40px;
+            justify-content: center;
+            align-items: stretch; /* Makes cards same height */
+        }
+        
+        .service-card {
+            flex: 1; /* Each card takes equal width */
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column; /* Stacks image on top of text */
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .service-image {
+            height: 250px; /* Fixed height for consistency */
+            width: 100%;
+            background: linear-gradient(135deg, #f4d58d 0%, #e8b86d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .service-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Fills remaining space */
+        }
+        
+        .service-content h2 {
+            font-size: 2rem;
+            color: #d4a574;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .service-content p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 30px;
+            margin-top: auto; /* Pushes list to the bottom of the content area */
+        }
+        
+        .service-features li {
+            padding: 8px 0;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .service-features li:before {
+            content: "✓";
+            color: #e8b86d;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .service-btn {
+            background: #e8b86d;
+            color: #5a4a3a;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            width: 100%; /* Full width button */
+        }
+        
+        .service-btn:hover {
+            background: #f2c98a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232,184,109,0.4);
         }
 
-        @media (max-width: 600px) {
-            .step-content { padding: 25px; }
-            .wizard-footer { padding: 20px; }
-            .options-grid { grid-template-columns: 1fr 1fr; }
+        .cta-section {
+            background: white;
+            padding: 80px 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #d4a574;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-button {
+            background: #e8b86d;
+            color: #5a4a3a;
+            padding: 18px 45px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(232,184,109,0.4);
+            background: #f2c98a;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        
+        /* Mobile Response: Stack them again if screen is small */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+            .navbar-links.active {
+                display: flex;
+            }
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .navbar-logo {
+                font-size: 1.1rem;
+            }
+            .navbar-logo-img {
+                width: 35px;
+                height: 35px;
+            }
+            .hero-section {
+                padding: 100px 20px 40px;
+            }
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+            .services-container {
+                flex-direction: column; /* Stack vertically on mobile */
+                gap: 30px;
+            }
+            .service-image {
+                height: 200px;
+            }
+            .service-content h2 {
+                font-size: 1.8rem;
+            }
+            .cta-section {
+                padding: 50px 20px;
+            }
+            .cta-section h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-
-<div class="wizard-container">
-    <div class="progress-header">
-        <span class="progress-text" id="stepText">Step 1 of 5</span>
-        <div class="step-dots">
-            <div class="dot active" id="dot1"></div>
-            <div class="dot" id="dot2"></div>
-            <div class="dot" id="dot3"></div>
-            <div class="dot" id="dot4"></div>
-            <div class="dot" id="dot5"></div>
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            <img src="dcslogo.svg" alt="Logo" class="navbar-logo-img">
+            <span>Dusty's</span>
+        </a>
+        <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="navbar-links" id="navLinks">
+            <a href="services.html">Services</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="about.html">About</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+            <a href="booking.html" class="navbar-book-btn">Book Now</a>
         </div>
+    </nav>
+
+    <section class="hero-section">
+        <h1>Our Services</h1>
+        <p>From routine maintenance to deep cleaning transformations, we offer comprehensive cleaning solutions tailored to your needs.</p>
+    </section>
+
+    <div class="services-container">
+        
+        <div class="service-card">
+            <div class="service-image">
+                [Photo: Sparkling clean living room]
+            </div>
+            <div class="service-content">
+                <h2>Routine Clean</h2>
+                <p>Keep your home consistently fresh with our scheduled maintenance service. Perfect for busy families and professionals who want to come home to a pristine space.</p>
+                <ul class="service-features">
+                    <li>Weekly, bi-weekly, or monthly</li>
+                    <li>Dusting, vacuuming, and mopping</li>
+                    <li>Kitchen and bathroom sanitization</li>
+                    <li>Trash removal and tidying</li>
+                    <li>Maintenance of high-traffic areas</li>
+                </ul>
+                <a href="booking.html" class="service-btn">Book Routine Clean</a>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="service-image">
+                [Photo: Deep cleaned kitchen with gleaming surfaces]
+            </div>
+            <div class="service-content">
+                <h2>Deep Clean</h2>
+                <p>Our most thorough service gets into every nook and cranny. Ideal for spring cleaning, tackling neglected spaces, or preparing for special events.</p>
+                <ul class="service-features">
+                    <li>Baseboards, fans, and light fixtures</li>
+                    <li>Inside cabinets and appliances</li>
+                    <li>Interior window washing</li>
+                    <li>Detailed grout and tile cleaning</li>
+                    <li>Behind and under furniture</li>
+                </ul>
+                <a href="booking.html" class="service-btn">Book Deep Clean</a>
+            </div>
+        </div>
+
     </div>
 
-    <form id="quoteForm" onsubmit="return false;">
-        
-        <div class="step-content active" id="step1">
-            <h2>Let's start with the basics.</h2>
-            <p class="subtitle">How big is the space that needs to be cleaned?</p>
+    <section class="cta-section">
+        <h2>Ready to Experience the Difference?</h2>
+        <p>Let us handle the cleaning while you focus on what matters most. Schedule your first service today and see why our customers keep coming back. Don't Doubt Dusty's!</p>
+        <a href="booking.html" class="cta-button">Get Started Today</a>
+    </section>
 
-            <label style="font-weight:600; display:block; margin-bottom:10px;">Square Footage</label>
-            <div class="options-grid">
-                <label class="option-card">
-                    <input type="radio" name="sqft" value="80" checked>
-                    <div class="card-visual">1 - 999<br>Sq Ft</div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="sqft" value="100">
-                    <div class="card-visual">1000 - 1499<br>Sq Ft</div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="sqft" value="130">
-                    <div class="card-visual">1500 - 1999<br>Sq Ft</div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="sqft" value="180">
-                    <div class="card-visual">2000+<br>Sq Ft</div>
-                </label>
-            </div>
+    <footer>
+        <p>&copy; 2025 Dusty's Cleaning Service. All rights reserved.</p>
+        <p>Sparkling Clean, Every Time</p>
+    </footer>
 
-            <div class="options-grid">
-                <div class="number-input-group">
-                    <label>Bedrooms</label>
-                    <input type="number" id="bedrooms" value="1" min="0">
-                </div>
-                <div class="number-input-group">
-                    <label>Bathrooms</label>
-                    <input type="number" id="bathrooms" value="1" min="1">
-                </div>
-            </div>
-        </div>
-
-        <div class="step-content" id="step2">
-            <h2>Cleaning History</h2>
-            <p class="subtitle">This helps us prepare the right supplies for the job.</p>
-
-            <label style="font-weight:600; display:block; margin-bottom:15px;">Has your house been professionally cleaned in the past 6 months?</label>
-            <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
-                <label class="option-card">
-                    <input type="radio" name="history" value="yes" checked>
-                    <div class="card-visual" style="font-size: 1.1rem;">👍<br>Yes</div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="history" value="no">
-                    <div class="card-visual" style="font-size: 1.1rem;">👎<br>No</div>
-                </label>
-            </div>
-        </div>
-
-        <div class="step-content" id="step3">
-            <h2>Service Type</h2>
-            <p class="subtitle">Select the package that fits your needs.</p>
-
-            <div class="options-grid">
-                <label class="option-card">
-                    <input type="radio" name="serviceType" value="standard" checked>
-                    <div class="card-visual">✨<br>Standard Clean</div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="serviceType" value="deep">
-                    <div class="card-visual">🧽<br>Deep Clean</div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="serviceType" value="move">
-                    <div class="card-visual">🚚<br>Move In/Out</div>
-                </label>
-            </div>
-
-            <div style="margin-top: 20px;">
-                <label class="option-card" style="max-width: 200px;">
-                    <input type="checkbox" name="condition" value="pets" data-price="20">
-                    <div class="card-visual" style="flex-direction: row; gap: 10px;">
-                        <span>🐾</span> Pets in Home
-                    </div>
-                </label>
-            </div>
-        </div>
-
-        <div class="step-content" id="step4">
-            <h2>Extras & Add-ons</h2>
-            <p class="subtitle">Do you need any specific areas tackled?</p>
-
-            <div class="options-grid">
-                <label class="option-card">
-                    <input type="checkbox" name="addon" value="Oven" data-price="30">
-                    <div class="card-visual">Inside Oven<br>+$30</div>
-                </label>
-                <label class="option-card">
-                    <input type="checkbox" name="addon" value="Fridge" data-price="28">
-                    <div class="card-visual">Inside Fridge<br>+$28</div>
-                </label>
-                <label class="option-card">
-                    <input type="checkbox" name="addon" value="Eco" data-price="25">
-                    <div class="card-visual">Eco Products<br>+$25</div>
-                </label>
-            </div>
-
-            <div class="number-input-group" style="margin-top:20px;">
-                <label>Interior Windows (+$5 each)</label>
-                <input type="number" id="windows" value="0" min="0">
-            </div>
-        </div>
-
-        <div class="step-content" id="step5">
-            <h2>How often?</h2>
-            <p class="subtitle">Recurring plans save you money per visit.</p>
-
-            <div class="options-grid" style="grid-template-columns: 1fr;">
-                <label class="option-card" style="flex-direction: row; text-align: left;">
-                    <input type="radio" name="frequency" value="1" checked>
-                    <div class="card-visual" style="align-items: flex-start; padding-left: 30px;">
-                        <strong>One-Time Clean</strong>
-                        <span style="font-size: 0.85rem; color: #888;">Standard pricing</span>
-                    </div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="frequency" value="0.9">
-                    <div class="card-visual" style="align-items: flex-start; padding-left: 30px;">
-                        <strong>Monthly</strong>
-                        <span style="font-size: 0.85rem; color: #4caf50;">Save 10%</span>
-                    </div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="frequency" value="0.8">
-                    <div class="card-visual" style="align-items: flex-start; padding-left: 30px;">
-                        <strong>Every Two Weeks</strong>
-                        <span style="font-size: 0.85rem; color: #4caf50;">Save 20% (Best Value)</span>
-                    </div>
-                </label>
-            </div>
-        </div>
-
-        <div class="step-content" id="stepResult">
-            <div class="result-box">
-                <h2>Your Estimated Quote</h2>
-                <p class="subtitle">Based on the details provided</p>
-                
-                <div class="final-price" id="displayTotalAmount">$0.00</div>
-                
-                <div class="summary-list">
-                    <div class="summary-item">
-                        <span>Base Cleaning:</span>
-                        <strong id="summaryBase">$0</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Add-ons & Condition:</span>
-                        <strong id="summaryAddons">$0</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Frequency Discount:</span>
-                        <strong id="summaryDiscount" style="color:#4caf50;">-$0</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Est. Duration:</span>
-                        <strong id="summaryHours">0 hrs</strong>
-                    </div>
-                </div>
-    
-                <div class="disclaimer-text">
-                    <strong>Please Note:</strong> This is a preliminary estimate only. Online quotes are intentionally calculated on the higher side to ensure there are no surprises. The final price depends on the specific condition of the home, and I require a brief in-person walkthrough to confirm the exact price.
-                </div>
-                <br> 
-                <button class="btn btn-next" onclick="window.location.href='booking.html'" style="width: 100%; padding: 18px; font-size: 1.2rem;">Book This Price Now</button>
-                
-                <div style="margin-top: 15px;">
-                    <a href="#" onclick="location.reload()" style="color: #8898aa; text-decoration: none; font-size: 0.9rem;">Start Over</a>
-                </div>
-            </div>
-        </div>
-
-    </form>
-
-    <div class="wizard-footer" id="wizardFooter">
-        <button class="btn btn-back" id="prevBtn" onclick="changeStep(-1)" disabled>Back</button>
-        <button class="btn btn-next" id="nextBtn" onclick="changeStep(1)">Next Step</button>
-    </div>
-</div>
-
-<script>
-    let currentStep = 1;
-    const totalSteps = 5; // Updated to 5 steps
-
-    function changeStep(n) {
-        // Hide current step
-        document.getElementById('step' + currentStep).classList.remove('active');
-        document.getElementById('dot' + currentStep)?.classList.remove('active');
-
-        // Move counter
-        currentStep += n;
-
-        // If we went past the last step, show result
-        if (currentStep > totalSteps) {
-            calculateAndShowResult();
-            return;
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
         }
-
-        // Show new step
-        document.getElementById('step' + currentStep).classList.add('active');
-        document.getElementById('dot' + currentStep).classList.add('active');
         
-        // Update Text
-        document.getElementById('stepText').innerText = `Step ${currentStep} of ${totalSteps}`;
-
-        // Handle Buttons
-        document.getElementById('prevBtn').disabled = currentStep === 1;
-        
-        if (currentStep === totalSteps) {
-            document.getElementById('nextBtn').innerText = "See Quote";
-        } else {
-            document.getElementById('nextBtn').innerText = "Next Step";
-        }
-    }
-
-    function calculateAndShowResult() {
-        // Hide Footer and Header
-        document.getElementById('wizardFooter').style.display = 'none';
-        document.querySelector('.progress-header').style.display = 'none';
-        document.getElementById('stepResult').classList.add('active');
-
-        // --- 1. Base Price ---
-        let base = parseInt(document.querySelector('input[name="sqft"]:checked').value);
-        base += parseInt(document.getElementById('bedrooms').value) * 10;
-        base += parseInt(document.getElementById('bathrooms').value) * 15;
-
-        // --- 2. Service Type Multipliers ---
-        let serviceType = document.querySelector('input[name="serviceType"]:checked').value;
-        let multiplier = 1;
-        if(serviceType === 'deep') multiplier = 1.5;
-        if(serviceType === 'move') multiplier = 1.8;
-        
-        let adjustedBase = base * multiplier;
-
-        // --- 3. Condition & Addons ---
-        let extrasTotal = 0;
-        
-        // NEW LOGIC: Cleaning History
-        let history = document.querySelector('input[name="history"]:checked').value;
-        if(history === 'no') {
-            extrasTotal += 40; // Charge $40 if not professionally cleaned recently
-        }
-
-        // Checkboxes for conditions (Pets)
-        document.querySelectorAll('input[name="condition"]:checked').forEach(cb => {
-            extrasTotal += parseInt(cb.getAttribute('data-price'));
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            if (!event.target.closest('.navbar')) {
+                navLinks.classList.remove('active');
+            }
         });
-
-        // Checkboxes for Addons (Oven, Eco, etc)
-        document.querySelectorAll('input[name="addon"]:checked').forEach(cb => {
-            extrasTotal += parseInt(cb.getAttribute('data-price'));
-        });
-
-        // Windows
-        let windowCount = parseInt(document.getElementById('windows').value) || 0;
-        extrasTotal += (windowCount * 5);
-
-        // --- 4. Subtotal ---
-        let subtotal = adjustedBase + extrasTotal;
-
-        // --- 5. Frequency Discount ---
-        let freqValue = parseFloat(document.querySelector('input[name="frequency"]:checked').value);
-        let finalTotal = subtotal * freqValue;
-        let discountAmount = subtotal - finalTotal;
-
-        // --- 6. Time Estimation ---
-        let hours = (finalTotal / 45).toFixed(1);
-        if(hours < 2) hours = 2;
-
-        // --- DISPLAY RESULTS ---
-        document.getElementById('displayTotalAmount').innerText = '$' + finalTotal.toFixed(2);
-        document.getElementById('summaryBase').innerText = '$' + adjustedBase.toFixed(2);
-        document.getElementById('summaryAddons').innerText = '$' + extrasTotal.toFixed(2);
-        document.getElementById('summaryDiscount').innerText = '-$' + discountAmount.toFixed(2);
-        document.getElementById('summaryHours').innerText = hours + ' hours';
-    }
-</script>
-
+    </script>
 </body>
 </html>
