@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+e<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -237,6 +237,16 @@
         .summary-item strong {
             color: #2c3e50;
         }
+        .disclaimer-text {
+          font-size: 0.85rem;
+          color: #8898aa;
+          margin-top: 20px;
+          line-height: 1.5;
+          background: #fffbf0;
+          padding: 15px;
+          border-radius: 8px;
+          border: 1px solid #f0e6d2;
+      }
 
         @media (max-width: 600px) {
             .step-content { padding: 25px; }
@@ -262,7 +272,7 @@
         
         <div class="step-content active" id="step1">
             <h2>Let's start with the basics.</h2>
-            <p class="subtitle">How big is the space we are cleaning?</p>
+            <p class="subtitle">How big is the space that needs to be cleaned?</p>
 
             <label style="font-weight:600; display:block; margin-bottom:10px;">Square Footage</label>
             <div class="options-grid">
@@ -371,7 +381,7 @@
                 <label class="option-card">
                     <input type="radio" name="frequency" value="0.8">
                     <div class="card-visual" style="align-items: flex-start; padding-left: 30px;">
-                        <strong>Bi-Weekly</strong>
+                        <strong>Every Two Weeks</strong>
                         <span style="font-size: 0.85rem; color: #4caf50;">Save 20% (Best Value)</span>
                     </div>
                 </label>
@@ -379,37 +389,25 @@
         </div>
 
         <div class="step-content" id="stepResult">
-            <div class="result-box">
-                <h2>Your Estimated Quote</h2>
-                <p class="subtitle">Based on the details provided</p>
-                
-                <div class="final-price" id="displayTotalAmount">$0.00</div>
-                
-                <div class="summary-list">
-                    <div class="summary-item">
-                        <span>Base Cleaning:</span>
-                        <strong id="summaryBase">$0</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Add-ons & Extras:</span>
-                        <strong id="summaryAddons">$0</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Frequency Discount:</span>
-                        <strong id="summaryDiscount" style="color:#4caf50;">-$0</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Est. Duration:</span>
-                        <strong id="summaryHours">0 hrs</strong>
-                    </div>
-                </div>
-
-                <button class="btn btn-next" style="width: 100%; padding: 18px; font-size: 1.2rem;">Book This Price Now</button>
-                <div style="margin-top: 15px;">
-                    <a href="#" onclick="location.reload()" style="color: #8898aa; text-decoration: none; font-size: 0.9rem;">Start Over</a>
-                </div>
-            </div>
-        </div>
+          <div class="result-box">
+              <h2>Your Estimated Quote</h2>
+              <p class="subtitle">Based on the details provided</p>
+              
+              <div class="final-price" id="displayTotalAmount">$0.00</div>
+              
+              <div class="summary-list">
+                  </div>
+      
+              <div class="disclaimer-text">
+                  <strong>Please Note:</strong> This is a preliminary estimate only. Online quotes are intentionally calculated on the higher side to ensure there are no surprises. The final price depends on the specific condition of the home, and I require a brief in-person walkthrough to confirm the exact price.
+              </div>
+              <br> <button class="btn btn-next" style="width: 100%; padding: 18px; font-size: 1.2rem;">Book This Price Now</button>
+              
+              <div style="margin-top: 15px;">
+                  <a href="#" onclick="location.reload()" style="color: #8898aa; text-decoration: none; font-size: 0.9rem;">Start Over</a>
+              </div>
+          </div>
+      </div>
 
     </form>
 
