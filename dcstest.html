@@ -19,7 +19,6 @@
             padding: 20px;
         }
 
-        /* Container for the Wizard */
         .wizard-container {
             background: white;
             width: 100%;
@@ -28,12 +27,11 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.08);
             overflow: hidden;
             position: relative;
-            min-height: 500px; /* Prevents jumping height */
+            min-height: 500px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Progress Bar */
         .progress-header {
             background: #fffbf0;
             padding: 20px 40px;
@@ -69,11 +67,10 @@
             transform: scale(1.2);
         }
 
-        /* Form Content Area */
         .step-content {
             padding: 40px;
             flex-grow: 1;
-            display: none; /* Hidden by default */
+            display: none;
             animation: fadeIn 0.4s ease;
         }
 
@@ -98,7 +95,6 @@
             font-size: 0.95rem;
         }
 
-        /* Option Grids (Clickable Cards) */
         .options-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -106,7 +102,6 @@
             margin-bottom: 20px;
         }
 
-        /* Radio/Checkbox Card Styling */
         .option-card {
             position: relative;
         }
@@ -140,7 +135,6 @@
             background: #fffdf8;
         }
 
-        /* Selected State */
         .option-card input:checked ~ .card-visual {
             border-color: #e8b86d;
             background: #fffbf0;
@@ -149,7 +143,6 @@
             box-shadow: 0 4px 12px rgba(232, 184, 109, 0.2);
         }
 
-        /* Number Inputs */
         .number-input-group {
             margin-bottom: 20px;
         }
@@ -166,7 +159,6 @@
             font-size: 1rem;
         }
 
-        /* Navigation Buttons */
         .wizard-footer {
             padding: 20px 40px;
             border-top: 1px solid #f0f0f0;
@@ -204,7 +196,6 @@
             box-shadow: 0 5px 15px rgba(232, 184, 109, 0.3);
         }
 
-        /* Final Result Page Styling */
         .result-box {
             text-align: center;
             padding: 20px;
@@ -238,15 +229,15 @@
             color: #2c3e50;
         }
         .disclaimer-text {
-          font-size: 0.85rem;
-          color: #8898aa;
-          margin-top: 20px;
-          line-height: 1.5;
-          background: #fffbf0;
-          padding: 15px;
-          border-radius: 8px;
-          border: 1px solid #f0e6d2;
-      }
+            font-size: 0.85rem;
+            color: #8898aa;
+            margin-top: 20px;
+            line-height: 1.5;
+            background: #fffbf0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f0e6d2;
+        }
 
         @media (max-width: 600px) {
             .step-content { padding: 25px; }
@@ -259,12 +250,13 @@
 
 <div class="wizard-container">
     <div class="progress-header">
-        <span class="progress-text" id="stepText">Step 1 of 4</span>
+        <span class="progress-text" id="stepText">Step 1 of 5</span>
         <div class="step-dots">
             <div class="dot active" id="dot1"></div>
             <div class="dot" id="dot2"></div>
             <div class="dot" id="dot3"></div>
             <div class="dot" id="dot4"></div>
+            <div class="dot" id="dot5"></div>
         </div>
     </div>
 
@@ -307,18 +299,27 @@
         </div>
 
         <div class="step-content" id="step2">
-            <h2>Current Condition</h2>
-            <p class="subtitle">Select all that apply to your home.</p>
+            <h2>Cleaning History</h2>
+            <p class="subtitle">This helps us prepare the right supplies for the job.</p>
+
+            <label style="font-weight:600; display:block; margin-bottom:15px;">Has your house been professionally cleaned in the past 6 months?</label>
+            <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
+                <label class="option-card">
+                    <input type="radio" name="history" value="yes" checked>
+                    <div class="card-visual" style="font-size: 1.1rem;">👍<br>Yes</div>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="history" value="no">
+                    <div class="card-visual" style="font-size: 1.1rem;">👎<br>No</div>
+                </label>
+            </div>
+        </div>
+
+        <div class="step-content" id="step3">
+            <h2>Service Type</h2>
+            <p class="subtitle">Select the package that fits your needs.</p>
 
             <div class="options-grid">
-                <label class="option-card">
-                    <input type="checkbox" name="condition" value="pets" data-price="20">
-                    <div class="card-visual">🐶<br>Pets in Home</div>
-                </label>
-                <label class="option-card">
-                    <input type="checkbox" name="condition" value="clutter" data-price="30">
-                    <div class="card-visual">📦<br>Heavy Clutter</div>
-                </label>
                 <label class="option-card">
                     <input type="radio" name="serviceType" value="standard" checked>
                     <div class="card-visual">✨<br>Standard Clean</div>
@@ -332,9 +333,18 @@
                     <div class="card-visual">🚚<br>Move In/Out</div>
                 </label>
             </div>
+
+            <div style="margin-top: 20px;">
+                <label class="option-card" style="max-width: 200px;">
+                    <input type="checkbox" name="condition" value="pets" data-price="20">
+                    <div class="card-visual" style="flex-direction: row; gap: 10px;">
+                        <span>🐾</span> Pets in Home
+                    </div>
+                </label>
+            </div>
         </div>
 
-        <div class="step-content" id="step3">
+        <div class="step-content" id="step4">
             <h2>Extras & Add-ons</h2>
             <p class="subtitle">Do you need any specific areas tackled?</p>
 
@@ -359,7 +369,7 @@
             </div>
         </div>
 
-        <div class="step-content" id="step4">
+        <div class="step-content" id="step5">
             <h2>How often?</h2>
             <p class="subtitle">Recurring plans save you money per visit.</p>
 
@@ -389,25 +399,42 @@
         </div>
 
         <div class="step-content" id="stepResult">
-          <div class="result-box">
-              <h2>Your Estimated Quote</h2>
-              <p class="subtitle">Based on the details provided</p>
-              
-              <div class="final-price" id="displayTotalAmount">$0.00</div>
-              
-              <div class="summary-list">
-                  </div>
-      
-              <div class="disclaimer-text">
-                  <strong>Please Note:</strong> This is a preliminary estimate only. Online quotes are intentionally calculated on the higher side to ensure there are no surprises. The final price depends on the specific condition of the home, and I require a brief in-person walkthrough to confirm the exact price.
-              </div>
-              <br> <button class="btn btn-next" style="width: 100%; padding: 18px; font-size: 1.2rem;">Book This Price Now</button>
-              
-              <div style="margin-top: 15px;">
-                  <a href="#" onclick="location.reload()" style="color: #8898aa; text-decoration: none; font-size: 0.9rem;">Start Over</a>
-              </div>
-          </div>
-      </div>
+            <div class="result-box">
+                <h2>Your Estimated Quote</h2>
+                <p class="subtitle">Based on the details provided</p>
+                
+                <div class="final-price" id="displayTotalAmount">$0.00</div>
+                
+                <div class="summary-list">
+                    <div class="summary-item">
+                        <span>Base Cleaning:</span>
+                        <strong id="summaryBase">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Add-ons & Condition:</span>
+                        <strong id="summaryAddons">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Frequency Discount:</span>
+                        <strong id="summaryDiscount" style="color:#4caf50;">-$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Est. Duration:</span>
+                        <strong id="summaryHours">0 hrs</strong>
+                    </div>
+                </div>
+    
+                <div class="disclaimer-text">
+                    <strong>Please Note:</strong> This is a preliminary estimate only. Online quotes are intentionally calculated on the higher side to ensure there are no surprises. The final price depends on the specific condition of the home, and I require a brief in-person walkthrough to confirm the exact price.
+                </div>
+                <br> 
+                <button class="btn btn-next" style="width: 100%; padding: 18px; font-size: 1.2rem;">Book This Price Now</button>
+                
+                <div style="margin-top: 15px;">
+                    <a href="#" onclick="location.reload()" style="color: #8898aa; text-decoration: none; font-size: 0.9rem;">Start Over</a>
+                </div>
+            </div>
+        </div>
 
     </form>
 
@@ -419,11 +446,9 @@
 
 <script>
     let currentStep = 1;
-    const totalSteps = 4;
+    const totalSteps = 5; // Updated to 5 steps
 
     function changeStep(n) {
-        // Validation logic could go here (e.g., ensure fields are filled)
-        
         // Hide current step
         document.getElementById('step' + currentStep).classList.remove('active');
         document.getElementById('dot' + currentStep)?.classList.remove('active');
@@ -455,22 +480,17 @@
     }
 
     function calculateAndShowResult() {
-        // Hide Footer
+        // Hide Footer and Header
         document.getElementById('wizardFooter').style.display = 'none';
-        // Hide Progress Header
         document.querySelector('.progress-header').style.display = 'none';
-        
-        // Show Result Div
         document.getElementById('stepResult').classList.add('active');
 
-        // --- CALCULATION LOGIC ---
-        
-        // 1. Base Price (SqFt + Beds + Baths)
+        // --- 1. Base Price ---
         let base = parseInt(document.querySelector('input[name="sqft"]:checked').value);
         base += parseInt(document.getElementById('bedrooms').value) * 10;
         base += parseInt(document.getElementById('bathrooms').value) * 15;
 
-        // 2. Service Type Multipliers
+        // --- 2. Service Type Multipliers ---
         let serviceType = document.querySelector('input[name="serviceType"]:checked').value;
         let multiplier = 1;
         if(serviceType === 'deep') multiplier = 1.5;
@@ -478,10 +498,16 @@
         
         let adjustedBase = base * multiplier;
 
-        // 3. Condition/Addons
+        // --- 3. Condition & Addons ---
         let extrasTotal = 0;
         
-        // Checkboxes for conditions (Pets/Clutter)
+        // NEW LOGIC: Cleaning History
+        let history = document.querySelector('input[name="history"]:checked').value;
+        if(history === 'no') {
+            extrasTotal += 40; // Charge $40 if not professionally cleaned recently
+        }
+
+        // Checkboxes for conditions (Pets)
         document.querySelectorAll('input[name="condition"]:checked').forEach(cb => {
             extrasTotal += parseInt(cb.getAttribute('data-price'));
         });
@@ -495,15 +521,15 @@
         let windowCount = parseInt(document.getElementById('windows').value) || 0;
         extrasTotal += (windowCount * 5);
 
-        // 4. Subtotal
+        // --- 4. Subtotal ---
         let subtotal = adjustedBase + extrasTotal;
 
-        // 5. Frequency Discount
+        // --- 5. Frequency Discount ---
         let freqValue = parseFloat(document.querySelector('input[name="frequency"]:checked').value);
         let finalTotal = subtotal * freqValue;
         let discountAmount = subtotal - finalTotal;
 
-        // 6. Time Estimation (Rough logic)
+        // --- 6. Time Estimation ---
         let hours = (finalTotal / 45).toFixed(1);
         if(hours < 2) hours = 2;
 
